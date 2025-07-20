@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { HiOutlineMail, HiLockClosed } from 'react-icons/hi';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
+import { signIn } from 'next-auth/react';
 
 const LoginForm = () => {
   return (
@@ -27,9 +28,25 @@ const LoginForm = () => {
             email: Yup.string().email('ایمیل معتبر نیست').required('ایمیل الزامی است'),
             password: Yup.string().min(6, 'حداقل ۶ کاراکتر').required('رمز عبور الزامی است'),
           })}
-          onSubmit={(values) => {
-            console.log('ورود با:', values);
-          }}
+           onSubmit={async (values, { setSubmitting, setErrors }) => {
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    });
+
+    if (res?.error) {
+      // اگه لاگین شکست خورد، پیام خطا بده (میتونی بهترش هم بکنی)
+      setErrors({ email: 'نام کاربری یا رمز عبور اشتباه است' });
+    } else {
+      // موفقیت‌آمیز: انتقال به داشبورد یا صفحه موردنظر
+      // window.location.href = "/dashboard";
+      console.log("booooos");
+      
+    }
+
+    setSubmitting(false);
+  }}
         >
           <Form className="space-y-4">
             {/* فیلد ایمیل */}
@@ -72,11 +89,15 @@ const LoginForm = () => {
 
         {/* دکمه‌های ورود با گوگل و گیت‌هاب */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-3 pt-4">
-        <button className="flex items-center justify-center gap-2 bg-white text-black w-full py-2 px-4 rounded-lg hover:bg-gray-200 transition">
+        <button 
+          onClick={() => signIn("google")}
+        className="flex items-center justify-center gap-2 bg-white text-black w-full py-2 px-4 rounded-lg hover:bg-gray-200 transition">
   <FcGoogle size={20} />
   ورود با گوگل
 </button>
-          <button className="flex items-center justify-center gap-2 bg-black text-white w-full py-2 px-4 rounded-lg hover:bg-gray-800 transition">
+          <button 
+           onClick={() => signIn("github")}
+          className="flex items-center justify-center gap-2 bg-black text-white w-full py-2 px-4 rounded-lg hover:bg-gray-800 transition">
     <FaGithub size={20} />
     ورود با گیت‌هاب
   </button>
