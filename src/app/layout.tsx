@@ -6,6 +6,7 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "../context/themeProvider";
 import Header from "../component/commen/Header";
 import Footer from "../component/commen/footer";
+import { Providers } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +42,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <Header />
-            {children}
+            <Providers>{children}</Providers>
           </ThemeProvider>
         </SessionProvider>
         <Footer />

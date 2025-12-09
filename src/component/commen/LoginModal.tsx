@@ -9,6 +9,8 @@ import { HiLockClosed, HiOutlineMail, HiX } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
+
+
 export default function LoginModal({
   isOpen,
   setIsOpen,
@@ -24,18 +26,6 @@ export default function LoginModal({
         static
         onClose={() => setIsOpen(false)}
       >
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-black bg-opacity-20 pointer-events-none" />
-        </Transition.Child>
-
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
           <Transition.Child
             as={Fragment}
@@ -78,7 +68,7 @@ export default function LoginModal({
                   if (res?.error) {
                     setErrors({ email: "نام کاربری یا رمز عبور اشتباه است" });
                   } else {
-                    window.location.href = "/landing";
+                    window.location.href = "/";
                   }
 
                   setSubmitting(false);
@@ -87,14 +77,14 @@ export default function LoginModal({
                 <Form className="space-y-4">
                   <div>
                     <label className="block mb-1 text-sm">ایمیل</label>
-                    <div className="relative">
+                    <div className="relative ">
                       <Field
                         name="email"
                         type="email"
-                        className="w-full py-2 pr-4 pl-10 rounded-lg bg-[#1f2937] border border-gray-500 focus:ring-2 focus:ring-orange-400"
+                        className="w-full py-2 pr-7 pl-10 mb-1 rounded-lg bg-[#1f2937] border border-gray-500 focus:ring-2 focus:ring-orange-400"
                       />
                       <HiOutlineMail
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                        className="absolute right-1 top-1/2 -translate-y-1/2 text-gray-400"
                         size={20}
                       />
                     </div>
@@ -111,10 +101,10 @@ export default function LoginModal({
                       <Field
                         name="password"
                         type="password"
-                        className="w-full py-2 pr-4 pl-10 rounded-lg bg-[#1f2937] border border-gray-500 focus:ring-2 focus:ring-orange-400"
+                        className="w-full py-2 pr-7 mt-1.5 pl-10 rounded-lg bg-[#1f2937] border border-gray-500 focus:ring-2 focus:ring-orange-400"
                       />
                       <HiLockClosed
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                        className="absolute right-1 top-1/2 -translate-y-1/2 text-gray-400"
                         size={20}
                       />
                     </div>

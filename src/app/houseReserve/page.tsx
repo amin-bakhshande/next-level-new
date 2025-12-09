@@ -1,6 +1,7 @@
 "use client";
 
-import HouseReserve from "@/component/commen/landing/houseReserve/houseReserve";
+import HouseReserve from "@/component/houseReserve/houseReserve";
+
 
 const ReservePage = () => {
   return (
